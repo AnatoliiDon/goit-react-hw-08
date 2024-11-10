@@ -1,16 +1,15 @@
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import css from './ContactForm.module.css';
-import * as yup from 'yup';
-import { apiPostContacts } from '../../redux/contacts/operations';
+import { ErrorMessage, Field, Formik, Form } from 'formik';
 import { useDispatch } from 'react-redux';
-const initialValues = {
-  name: '',
-  number: '',
-};
+import * as yup from 'yup';
+import css from './loginPage.module.css';
 
+const initialValues = {
+  password: '',
+  email: '',
+};
 const regex = /^(?=.*?[1-9])[0-9()-]+$/;
 
-const addProfileSchema = yup.object({
+const registrationProfileSchema = yup.object({
   name: yup
     .string()
     .min(3, 'name should have at least 3 symbols')
@@ -24,54 +23,52 @@ const addProfileSchema = yup.object({
     .matches(regex, 'enter valid number'),
 });
 
-const ContactForm = () => {
+export const LoginPage = () => {
   const dispatch = useDispatch();
-  const onAddProfile = (formData, actions) => {
+  const onLogin = (formData, actions) => {
     actions.resetForm();
-    dispatch(apiPostContacts(formData));
+    dispatch(apiLogin(formData));
   };
-
   return (
     <Formik
       initialValues={initialValues}
-      onSubmit={onAddProfile}
-      validationSchema={addProfileSchema}
+      onSubmit={onLogin}
+      validationSchema={registrationProfileSchema}
     >
       <Form className={css.formField}>
         <label className={css.inputField}>
-          <span className={css.inputTitle}>name</span>
+          <span className={css.inputTitle}>Email</span>
           <Field
             className={css.inputArea}
             type="text"
-            name="name"
-            placeholder="Vasil Hmara"
+            name="email"
+            placeholder="example@gmail.com"
           />
           <ErrorMessage
             className={css.errorMessage}
-            name="name"
+            name="email"
             component="span"
           />
         </label>
 
         <label className={css.inputField}>
-          <span className={css.inputTitle}>number</span>
+          <span className={css.inputTitle}>Password</span>
           <Field
             className={css.inputArea}
             type="text"
-            name="number"
-            placeholder="xxx-xx-xx"
+            name="password"
+            placeholder="*********"
           />
           <ErrorMessage
             className={css.errorMessage}
-            name="number"
+            name="password"
             component="span"
           />
         </label>
         <button type="submit" className={css.addBtn}>
-          Add contact
+          Login
         </button>
       </Form>
     </Formik>
   );
 };
-export default ContactForm;
