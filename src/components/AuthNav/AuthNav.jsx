@@ -11,12 +11,14 @@ const AuthNav = () => {
       <NavLink className={activeStyle} to="/">
         Home
       </NavLink>
-      <NavLink className={activeStyle} to="/register">
-        Register
-      </NavLink>
-      <NavLink className={activeStyle} to="/login">
-        Login
-      </NavLink>
+      <div className={css.navWrapper}>
+        <NavLink className={activeStyle} to="/register">
+          Register
+        </NavLink>
+        <NavLink className={activeStyle} to="/login">
+          Login
+        </NavLink>
+      </div>
     </header>
   );
 };

@@ -7,12 +7,13 @@ const SearchBox = () => {
   const selectNameFilter = useSelector(selectFilter);
   const dispatch = useDispatch();
   return (
-    <div>
+    <div className={css.searchBox}>
       <h3>Find contacts by name or number</h3>
       <input
         className={css.findInput}
         value={selectNameFilter}
         type="text"
+        placeholder="Enter name or number for search"
         onChange={event => {
           const changeFilter = setFilter(event.target.value);
           dispatch(changeFilter);

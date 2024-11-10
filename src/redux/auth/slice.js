@@ -7,7 +7,10 @@ import {
 } from './operations';
 
 const INITIAL_STATE = {
-  user: null,
+  user: {
+    name: null,
+    email: null,
+  },
   token: null,
   isLoggedIn: false,
   isRefreshing: false,

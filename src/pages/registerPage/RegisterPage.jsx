@@ -87,7 +87,7 @@ const RegisterPage = () => {
               component="span"
             />
           </label>
-          <button type="submit" className={css.addBtn}>
+          <button type="submit" className={css.registerBtn}>
             Registration
           </button>
         </Form>
