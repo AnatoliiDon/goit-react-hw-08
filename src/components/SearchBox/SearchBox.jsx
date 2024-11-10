@@ -8,7 +8,7 @@ const SearchBox = () => {
   const dispatch = useDispatch();
   return (
     <div>
-      <h3>Find contacts by name</h3>
+      <h3>Find contacts by name or number</h3>
       <input
         className={css.findInput}
         value={selectNameFilter}
