@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import css from './Navigation.module.css';
+import css from './navigation.module.css';
 import clsx from 'clsx';
 import { useDispatch } from 'react-redux';
 import { apiLogout } from '../../redux/auth/operations';
