@@ -1,47 +1,53 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+const dataInstance = axios.create({
+  baseURL: 'https://connections-api.goit.global/',
+});
 
-axios.defaults.baseURL = "https://6726573b302d03037e6d3ec3.mockapi.io/";
+export const setToken = token => {
+  dataInstance.defaults.headers.common.Authorization = `Bearer ${token}`;
+};
 
-export const fetchContacts = async () => {
-    const { data } = await axios.get("/contact");
-    return data;
-}
-
-export const addContact = async (name,number) => {
-    const { data } = await axios.post("/contact", { name, number })
-    return data;
-}
-
-export const deleteContact = async (id) => {
-    const { data } = await axios.delete(`/contact/${id}`, { id })
-    return data;
-}
-
-export const apiGetContacts = createAsyncThunk('constacts/getContacts', async (_, thunkApi) => {
-try {
-    const data = await fetchContacts();
-    return data
-} catch (error) {
-    return thunkApi.rejectWithValue(error.message)
-}
-})
-
-export const apiPostContacts = createAsyncThunk('constacts/putContacts', async ({name,number}, thunkApi) => {
-try {
-    const data = await addContact(name,number);
+export const apiGetContacts = createAsyncThunk(
+  '/contacts',
+  async (_, thunkApi) => {
+    const state = thunkApi.getState();
+    const token = state.auth.token;
+    if (token === null) {
+      return thunkApi.rejectWithValue('no token provide to refresh user data');
+    }
+    try {
+      setToken(token);
+      const { data } = await dataInstance.get('/contacts');
+      console.log(data);
       return data;
-} catch (error) {
-    return thunkApi.rejectWithValue(error.message)
-}
-})
+    } catch (error) {
+      return thunkApi.rejectWithValue(error.message);
+    }
+  }
+);
 
-export const apiDeleteContacts = createAsyncThunk('constacts/deleteContacts', async (id, thunkApi) => {
-try {
-    const data = await deleteContact(id);
+export const apiPostContacts = createAsyncThunk(
+  '/contacts/add',
+  async (formData, thunkApi) => {
+    try {
+      const { data } = await dataInstance.post('/contacts', formData);
       return data;
-} catch (error) {
-    return thunkApi.rejectWithValue(error.message)
-}
-})
+    } catch (error) {
+      return thunkApi.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const apiDeleteContacts = createAsyncThunk(
+  'constacts/deleteContacts',
+  async (id, thunkApi) => {
+    try {
+      const { data } = await dataInstance.delete(`/contacts/${id}`);
+      return data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error.message);
+    }
+  }
+);

@@ -26,7 +26,7 @@ const registrationProfileSchema = yup.object({
     .required('Password is required'),
 });
 
-export const RegisterPage = () => {
+const RegisterPage = () => {
   const dispatch = useDispatch();
 
   const onRegistrationSubmit = (values, actions) => {
@@ -95,3 +95,4 @@ export const RegisterPage = () => {
     </div>
   );
 };
+export default RegisterPage;

@@ -5,6 +5,5 @@ import { isLoggedIn } from '../../redux/auth/selectors';
 
 export const AppBar = () => {
   const isLogin = useSelector(isLoggedIn);
-  console.log(isLogin);
   return isLogin ? <Navigation /> : <AuthNav />;
 };

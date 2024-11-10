@@ -23,7 +23,7 @@ const loginProfileSchema = yup.object({
     .matches(regex, 'password is wrong'),
 });
 
-export const LoginPage = () => {
+const LoginPage = () => {
   const dispatch = useDispatch();
   const onLogin = (formData, actions) => {
     actions.resetForm();
@@ -72,3 +72,4 @@ export const LoginPage = () => {
     </Formik>
   );
 };
+export default LoginPage;
