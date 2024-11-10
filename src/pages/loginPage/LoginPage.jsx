@@ -2,38 +2,38 @@ import { ErrorMessage, Field, Formik, Form } from 'formik';
 import { useDispatch } from 'react-redux';
 import * as yup from 'yup';
 import css from './loginPage.module.css';
+import { apiLoginUser } from '../../redux/auth/operations';
 
 const initialValues = {
-  password: '',
   email: '',
+  password: '',
 };
 const regex = /^(?=.*?[1-9])[0-9()-]+$/;
 
-const registrationProfileSchema = yup.object({
-  name: yup
+const loginProfileSchema = yup.object({
+  email: yup
     .string()
     .min(3, 'name should have at least 3 symbols')
     .max(50, 'name should have less than 50 symbols')
-    .required('Name is reqiered'),
-  number: yup
+    .required('Email is reqiered'),
+  password: yup
     .string()
-    .required('phone is reqiered')
-    .min(3, 'too short!')
-    .max(50, 'too long!')
-    .matches(regex, 'enter valid number'),
+    .required('password is reqiered')
+    .min(8, 'too short!')
+    .matches(regex, 'password is wrong'),
 });
 
 export const LoginPage = () => {
   const dispatch = useDispatch();
   const onLogin = (formData, actions) => {
     actions.resetForm();
-    dispatch(apiLogin(formData));
+    dispatch(apiLoginUser(formData));
   };
   return (
     <Formik
       initialValues={initialValues}
       onSubmit={onLogin}
-      validationSchema={registrationProfileSchema}
+      validationSchema={loginProfileSchema}
     >
       <Form className={css.formField}>
         <label className={css.inputField}>
@@ -55,7 +55,7 @@ export const LoginPage = () => {
           <span className={css.inputTitle}>Password</span>
           <Field
             className={css.inputArea}
-            type="text"
+            type="password"
             name="password"
             placeholder="*********"
           />
