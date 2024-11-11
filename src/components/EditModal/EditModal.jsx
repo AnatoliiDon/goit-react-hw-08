@@ -2,24 +2,8 @@ import Modal from 'react-modal';
 import css from './editModal.module.css';
 import { useDispatch } from 'react-redux';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
-import * as yup from 'yup';
 import { apiEditContacts } from '../../redux/contacts/operations';
-
-const regex = /^(?=.*?[1-9])[0-9()-]+$/;
-
-const editProfileSchema = yup.object({
-  name: yup
-    .string()
-    .min(3, 'name should have at least 3 symbols')
-    .max(50, 'name should have less than 50 symbols')
-    .required('Name is reqiered'),
-  number: yup
-    .string()
-    .required('phone is reqiered')
-    .min(3, 'too short!')
-    .max(50, 'too long!')
-    .matches(regex, 'enter valid number'),
-});
+import { editProfileSchema } from '../../util/schemas';
 
 const initialValues = {
   name: '',

@@ -10,6 +10,8 @@ import { apiRefreshUser } from './redux/auth/operations';
 import { isRefreshing } from './redux/auth/selectors';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import RestrictedRoute from './components/RestrictedRoute/RestrictedRoute';
+import { Toaster } from 'react-hot-toast';
+import { toastOptions } from './util/toastStyle';
 
 const HomePage = lazy(() => import('./pages/homePage/HomePage'));
 const RegisterPage = lazy(() => import('./pages/registerPage/RegisterPage'));
@@ -50,6 +52,7 @@ const App = () => {
           </Route>
         </Routes>
       </Suspense>
+      <Toaster toastOptions={toastOptions} />
     </div>
   );
 };

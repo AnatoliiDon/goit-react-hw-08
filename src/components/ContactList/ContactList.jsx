@@ -11,12 +11,16 @@ const ContactList = () => {
   return (
     <ul className={css.contactList}>
       {Array.isArray(contacts) && contacts.length === 0 && (
-        <p>There are no contacts in your phonebook yet!</p>
+        <h2 className={css.textStyles}>
+          There are no contacts in your phonebook yet!
+        </h2>
       )}
       {Array.isArray(filteredUsers) &&
         filteredUsers.length === 0 &&
         contacts.length !== 0 && (
-          <p>No contacts matching the query were found!</p>
+          <h2 className={css.textStyles}>
+            No contacts matching the query were found!
+          </h2>
         )}
       {Array.isArray(filteredUsers) &&
         filteredUsers.map(({ id, name, number }) => {
