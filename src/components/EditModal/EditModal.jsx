@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { apiEditContacts } from '../../redux/contacts/operations';
 import { editProfileSchema } from '../../util/schemas';
+import toast from 'react-hot-toast';
 
 const initialValues = {
   name: '',
@@ -18,7 +19,14 @@ const EditModal = ({ isOpenEdit, onEditClose, id }) => {
       ...formData,
       id: id,
     };
-    dispatch(apiEditContacts(userData));
+    dispatch(apiEditContacts(userData))
+      .unwrap()
+      .then(() => {
+        toast.success('Contact updated');
+      })
+      .catch(() => {
+        toast.error('Something went wrong');
+      });
     onEditClose();
   };
 

@@ -2,11 +2,19 @@ import Modal from 'react-modal';
 import css from './modalWindow.module.css';
 import { useDispatch } from 'react-redux';
 import { apiDeleteContacts } from '../../redux/contacts/operations';
+import toast from 'react-hot-toast';
 
 const ModalWindow = ({ isOpen, onClose, id }) => {
   const dispatch = useDispatch();
   const onDeleteProfile = profileId => {
-    dispatch(apiDeleteContacts(profileId));
+    dispatch(apiDeleteContacts(profileId))
+      .unwrap()
+      .then(() => {
+        toast.success('Contact deleted');
+      })
+      .catch(() => {
+        toast.error('Something went wrong');
+      });
   };
   return (
     <Modal
