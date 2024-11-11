@@ -51,3 +51,18 @@ export const apiDeleteContacts = createAsyncThunk(
     }
   }
 );
+
+export const apiEditContacts = createAsyncThunk(
+  'constacts/editContacts',
+  async ({ id, name, number }, thunkApi) => {
+    try {
+      const { data } = await dataInstance.patch(`/contacts/${id}`, {
+        name: name,
+        number: number,
+      });
+      return data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error.message);
+    }
+  }
+);

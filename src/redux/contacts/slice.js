@@ -3,6 +3,7 @@ import {
   apiGetContacts,
   apiPostContacts,
   apiDeleteContacts,
+  apiEditContacts,
 } from './operations';
 import { selectFilter } from '../filter/selectors';
 import { selectContacts } from './selectors';
@@ -54,6 +55,23 @@ export const contactsSlice = createSlice({
         state.contacts.splice(index, 1);
       })
       .addCase(apiDeleteContacts.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(apiEditContacts.pending, state => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(apiEditContacts.fulfilled, (state, action) => {
+        state.loading = false;
+        const index = state.contacts.findIndex(
+          contact => contact.id === action.payload.id
+        );
+        const data = action.payload;
+        console.log(data);
+        state.contacts.splice(index, 1, data);
+      })
+      .addCase(apiEditContacts.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       }),
