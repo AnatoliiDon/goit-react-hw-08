@@ -13,7 +13,6 @@
   overflow: hidden;
   letter-spacing: 2px;
   transition: 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
-  margin-left: auto;
 }
 .logoutBtn:before {
   content: '';
@@ -34,4 +33,13 @@
   bottom: 0%;
   top: auto;
   height: 100%;
+}
+
+.welcomeMessage {
+}
+.container {
+  margin-left: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }

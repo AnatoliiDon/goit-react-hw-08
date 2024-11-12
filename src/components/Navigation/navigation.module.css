@@ -10,13 +10,13 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding-bottom: 20px;
 }
 
 .navigation {
   display: flex;
   flex-direction: row;
   gap: 30px;
+  align-items: center;
 }
 .greeting {
   display: flex;
