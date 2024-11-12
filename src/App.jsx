@@ -7,16 +7,16 @@ import { Layout } from './components/Layout/Layout';
 // import { ContactsPage } from './pages/contactsPage/ConstactsPage';
 // import { HomePage } from './pages/homePage/HomePage';
 import { apiRefreshUser } from './redux/auth/operations';
-import { isRefreshing } from './redux/auth/selectors';
+import { selectIsRefreshing } from './redux/auth/selectors';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import RestrictedRoute from './components/RestrictedRoute/RestrictedRoute';
 import { Toaster } from 'react-hot-toast';
 import { toastOptions } from './util/toastStyle';
 
-const HomePage = lazy(() => import('./pages/homePage/HomePage'));
-const RegisterPage = lazy(() => import('./pages/registerPage/RegisterPage'));
-const LoginPage = lazy(() => import('./pages/loginPage/LoginPage'));
-const ContactsPage = lazy(() => import('./pages/contactsPage/ConstactsPage'));
+const HomePage = lazy(() => import('./pages/HomePage/HomePage'));
+const RegisterPage = lazy(() => import('./pages/RegisterPage/RegisterPage'));
+const LoginPage = lazy(() => import('./pages/LoginPage/LoginPage'));
+const ContactsPage = lazy(() => import('./pages/ContactsPage/ConstactsPage'));
 
 const App = () => {
   const dispatch = useDispatch();
@@ -25,16 +25,16 @@ const App = () => {
     dispatch(apiRefreshUser());
   }, [dispatch]);
 
-  const isRefresh = useSelector(isRefreshing);
+  const isRefresh = useSelector(selectIsRefreshing);
 
   if (isRefresh) {
     return <h4>Loading...</h4>;
   }
   return (
-    <div>
+    <Layout>
       <Suspense fallback={<div>Loading...</div>}>
         <Routes>
-          <Route path="/" element={<Layout />}>
+          <Route path="/">
             <Route index element={<HomePage />} />
             <Route
               path="/register"
@@ -53,7 +53,7 @@ const App = () => {
         </Routes>
       </Suspense>
       <Toaster toastOptions={toastOptions} />
-    </div>
+    </Layout>
   );
 };
 

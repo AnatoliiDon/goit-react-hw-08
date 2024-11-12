@@ -1,12 +1,11 @@
-import { createSelector, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import {
   apiGetContacts,
   apiPostContacts,
   apiDeleteContacts,
   apiEditContacts,
 } from './operations';
-import { selectFilter } from '../filter/selectors';
-import { selectContacts } from './selectors';
+import { apiLogout } from '../auth/operations';
 
 const INITIAL_STATE = {
   contacts: null,
@@ -74,20 +73,14 @@ export const contactsSlice = createSlice({
       .addCase(apiEditContacts.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
+      })
+      .addCase(apiLogout.fulfilled, state => {
+        state.contacts = [];
+        state.loading = false;
+        state.error = null;
       }),
 });
 
 export const contactsReducer = contactsSlice.reducer;
-export const selectFilteredContacts = createSelector(
-  [selectFilter, selectContacts],
-  (filter, contacts) => {
-    return contacts?.filter(
-      contact =>
-        contact.name
-          .toLocaleLowerCase()
-          .includes(filter.toLocaleLowerCase().trim()) ||
-        contact.number.includes(filter.toLocaleLowerCase().trim())
-    );
-  }
-);
+
 export const { addContact, deleteContact } = contactsSlice.actions;

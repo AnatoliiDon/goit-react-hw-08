@@ -7,19 +7,14 @@ const AuthNav = () => {
     clsx(css.link, isActive && css.activeLink);
 
   return (
-    <header className={css.header}>
-      <NavLink className={activeStyle} to="/">
-        Home
+    <div className={css.navWrapper}>
+      <NavLink className={activeStyle} to="/register">
+        Register
       </NavLink>
-      <div className={css.navWrapper}>
-        <NavLink className={activeStyle} to="/register">
-          Register
-        </NavLink>
-        <NavLink className={activeStyle} to="/login">
-          Login
-        </NavLink>
-      </div>
-    </header>
+      <NavLink className={activeStyle} to="/login">
+        Login
+      </NavLink>
+    </div>
   );
 };
 

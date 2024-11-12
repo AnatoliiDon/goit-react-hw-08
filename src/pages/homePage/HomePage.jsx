@@ -1,10 +1,10 @@
 import { useSelector } from 'react-redux';
+import { selectIsLoggedIn, selectUserName } from '../../redux/auth/selectors';
 import css from './homePage.module.css';
-import { isLoggedIn, userName } from '../../redux/auth/selectors';
 
 const HomePage = () => {
-  const login = useSelector(isLoggedIn);
-  const name = useSelector(userName);
+  const login = useSelector(selectIsLoggedIn);
+  const name = useSelector(selectUserName);
   return login ? (
     <h1 className={css.title}>Welcome to your personal phonebook {name}</h1>
   ) : (

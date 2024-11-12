@@ -20,7 +20,6 @@ export const apiGetContacts = createAsyncThunk(
     try {
       setToken(token);
       const { data } = await dataInstance.get('/contacts');
-      console.log(data);
       return data;
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);
