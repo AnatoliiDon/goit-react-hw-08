@@ -31,7 +31,7 @@
 }
 
 .errorMessage {
-  color: red;
+  color: rgba(255, 0, 0, 0.952);
   font-size: 12px;
 }
 
