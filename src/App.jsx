@@ -13,10 +13,10 @@ import RestrictedRoute from './components/RestrictedRoute/RestrictedRoute';
 import { Toaster } from 'react-hot-toast';
 import { toastOptions } from './util/toastStyle';
 
-const HomePage = lazy(() => import('./pages/HomePage/HomePage'));
+const HomePage = lazy(() => import('./pages/HomePage1/HomePage'));
 const RegisterPage = lazy(() => import('./pages/RegisterPage/RegisterPage'));
-const LoginPage = lazy(() => import('./pages/LoginPage/LoginPage'));
-const ContactsPage = lazy(() => import('./pages/ContactsPage/ConstactsPage'));
+const LoginPage = lazy(() => import('./pages/LoginPage1/LoginPage'));
+const ContactsPage = lazy(() => import('./pages/ContactsPage1/ConstactsPage'));
 
 const App = () => {
   const dispatch = useDispatch();
